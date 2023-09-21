@@ -11,12 +11,11 @@ const SuccessPage = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
+        
         await fetch(`http://localhost:3000/api/confirm/${payment_intent}`, {
           method: "PUT",
         });
-        setTimeout(() => {
-          router.push("/orders");
-        }, 5000);
+
       } catch (err) {
         console.log(err);
       }
@@ -24,11 +23,17 @@ const SuccessPage = () => {
 
     makeRequest();
   }, [payment_intent, router]);
-    return (
-        <div>
-            Payment successful. Youi are being redirected to the orders page.Please do not close the page.
-        </div>
-    );
+
+  return (
+    <>
+      <div className="min-h-[calc(100vh-6rem)] md:min-h-[calc(100vh-15rem)] flex items-center justify-center text-center text-2xl text-green-700">
+        <p className="max-w-[600px]">
+          Payment successful. You are being redirected to the orders page.
+          Please do not close the page.
+        </p>
+      </div>
+    </>
+  );
 };
 
 export default SuccessPage;

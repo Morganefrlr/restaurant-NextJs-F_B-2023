@@ -92,7 +92,7 @@ const CheckoutForm = () => {
             />
             <PaymentElement id="payment-element" options={{layout:'tabs'}} />
             <AddressForm />
-            <button disabled={isLoading || !stripe || !elements} id="submit">
+            <button disabled={isLoading || !stripe || !elements} id="submit" className="w-fit bg-red-500 text-gray-100 p-3 rounded-lg shadow-md my-10">
             <span id="button-text">
                 {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
             </span>

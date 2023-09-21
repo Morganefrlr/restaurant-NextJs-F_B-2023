@@ -62,9 +62,9 @@ const AddPage = () => {
         const data = new FormData()
         data.append('file', file!)
         data.append("upload_preset", "restaurant");
-        const res = await fetch('https://api.cloudinary.com/v1_1/dtqyjsd41/image/',{
+        const res = await fetch('https://api.cloudinary.com/v1_1/dtqyjsd41/image/upload',{
             method: "POST",
-            headers: { "Content-Type": "multipart/form-data" },
+            
             body: data,
         })
         const resData = await res.json()
@@ -85,47 +85,48 @@ const AddPage = () => {
                 })
             })
             const data = await res.json()
-            //router.push(`/product/${data.id}`)
+            router.push(`/product/${data.id}`)
         }
         catch(err){
             console.log(err)
         }
       }
+
     return (
-        <div>
-            <form className="flex shadow-lg flex-wrap gap-4 p-8" onSubmit={handleSubmit}>
-                <h1>Add new Product</h1>
+        <div className="flex ">
+            <form className="flex shadow-lg flex-wrap gap-4 p-8 bg-yellow-400 w-[70vw] my-10 pt-5 text-gray-800 rounded-xl mx-auto" onSubmit={handleSubmit}>
+                <h1 className="text-2xl text-center w-full font-semibold">Add new Product</h1>
                 <div className="w-full flex flex-col gap-2">
                     <label>Image</label>
-                    <input className="ring-1 ring-red-200 p-2 rounded-sm" type="file" onChange={handleChangeImg}/>
+                    <input className="ring-1 ring-red-500 p-2 rounded-sm" type="file" onChange={handleChangeImg}/>
                 </div>
                 <div className="w-full flex flex-col gap-2">
                     <label>Title</label>
-                    <input onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="text" name="title" />
+                    <input onChange={handleChange} className="ring-1 ring-red-500 p-2 rounded-sm" type="text" name="title" />
                 </div>
                 <div className="w-full flex flex-col gap-2">
                     <label>Description</label>
-                    <textarea onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" name="desc" />
+                    <textarea onChange={handleChange} className="ring-1 ring-red-500 p-2 rounded-sm" name="desc" />
                 </div>
                 <div className="w-full flex flex-col gap-2">
                     <label>Price</label>
-                    <input onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="number" name="price" />
+                    <input onChange={handleChange} className="ring-1 ring-red-500 p-2 rounded-sm" type="number" name="price" />
                 </div>
                 <div className="w-full flex flex-col gap-2">
                     <label>Category</label>
-                    <input onChange={handleChange} className="ring-1 ring-red-200 p-2 rounded-sm" type="text" name="catSlug" />
+                    <input onChange={handleChange} className="ring-1 ring-red-500 p-2 rounded-sm" type="text" name="catSlug" />
                 </div>
                 <div className="w-full flex flex-col gap-2">
                     <label>Options</label>
                     <div>
-                        <input onChange={changeOption} className="ring-1 ring-red-200 p-2 rounded-sm" type="text" placeholder="Title" name="title" />
-                        <input onChange={changeOption} className="ring-1 ring-red-200 p-2 rounded-sm" type="number" placeholder="AdditionalPrice" name="additionalPrice" />
+                        <input onChange={changeOption} className="ring-1 ring-red-500 p-2 rounded-sm" type="text" placeholder="Title" name="title" />
+                        <input onChange={changeOption} className="ring-1 ring-red-500 p-2 rounded-sm" type="number" placeholder="AdditionalPrice" name="additionalPrice" />
                     </div>
                     <div className="w-52 bg-red-500 text-white p-2" onClick={() => setOptions((prev) => [...prev, option])}>Add Option</div>
                 </div>
                 <div>
                     {options && options.map(item => 
-                        <div className="ring-1 p-2 ring-red-200 rounded-sm" key={item.title} onClick={() =>setOptions(options.filter(el => el.title !== item.title))}>
+                        <div className="ring-1 p-2 ring-red-500 rounded-sm flex gap-2" key={item.title} onClick={() =>setOptions(options.filter(el => el.title !== item.title))}>
                             <span>{item.title}</span>
                             <span>${item.additionalPrice}</span>
                         </div>

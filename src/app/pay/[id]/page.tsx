@@ -1,41 +1,44 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from "react";
-import { StripeElementsOptions, loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/CheckoutForm";
+import { Elements } from "@stripe/react-stripe-js";
+import { StripeElementsOptions, loadStripe } from "@stripe/stripe-js";
+import { useEffect, useState } from "react";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
 
-const PayPage = ({params}:{params:{id : string}}) => {
-    const [clientSecret, setClientSecret] = useState("");
-    const {id} = params
+const PayPage = ({ params }: { params: { id: string } }) => {
+  const [clientSecret, setClientSecret] = useState("");
 
-    useEffect(() =>{
-        const makeRequest = async () => {
-            try{
-                const res = await fetch(`http://localhost:3000/api/create-intent/${id}`,{
-                    method: 'POST',
-                })
-                const data = await res.json()
+  const { id } = params;
 
-                setClientSecret(data.clientSecret)
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/api/create-intent/${id}`,
+          {
+            method: "POST",
+          }
+        );
+        const data = await res.json();
+        setClientSecret(data.clientSecret);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-            }catch(err){
-                console.log(err)
-            }
-        }
+    makeRequest();
+  }, [id]);
 
-        makeRequest()
-    },[id])
-
-const options:StripeElementsOptions ={
+  const options:StripeElementsOptions={
     clientSecret,
     appearance:{
-        theme:"stripe"
+      theme:"stripe"
     }
-}
-
+  }
 
     return (
         <div className="w-[90vw] mx-auto mt-20 h-auto">

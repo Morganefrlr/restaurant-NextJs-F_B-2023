@@ -23,6 +23,7 @@ const OrdersPage = () => {
             (res) => res.json(),
           ),
     })
+
     
     const queryClient = useQueryClient()
 
@@ -66,11 +67,11 @@ const OrdersPage = () => {
                     </tr>
                 </thead>
                 <tbody>
-                   {data.map((item:OrderType) =>
-                        <tr className={`text-sm md:text-base ${item.status === "Delivered" ? 'odd:bg-green-50 even:bg-yellow-50' : 'bg-red-50'}`} key={item.id}>
+                   {data && data.map((item:OrderType) =>
+                        <tr className={`text-sm md:text-base ${item.status === "Being prepared!" ? 'odd:bg-green-50 even:bg-yellow-50' : 'bg-red-50'}`} key={item.id}>
                             <td className="hidden md:block py-6 px-1">{item.id}</td>
                             <td className="py-6 px-1">{item.createdAt.toString().slice(0,10)}</td>
-                            <td className="py-6 px-1">{item.price}</td>
+                            <td className="py-6 px-1">{item.price}</td>                          
                             <td className="hidden md:block">{item.products[0].title}</td>
                             {
                                 session?.user.isAdmin ? (

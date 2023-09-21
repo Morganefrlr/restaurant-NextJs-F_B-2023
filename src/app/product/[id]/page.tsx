@@ -24,7 +24,7 @@ const getData = async (id:string) =>{
 const SingleProduct = async ({params} : {params:{id:string}}) => {
 
     const singleProduct:ProductType = await getData(params.id)
-    console.log(singleProduct.price)
+    console.log(singleProduct)
 
     return (
         <div className='flex md:h-[59vh] flex-col-reverse md:flex-row relative'>
@@ -36,7 +36,7 @@ const SingleProduct = async ({params} : {params:{id:string}}) => {
                 </div>
             </div>
             <div className='md:flex-1 flex flex-col items-center justify-center my-10 md:mt-0 xl:mt-10' >
-                {singleProduct.img && <Image src={singleProduct.img} alt='' width={200} height={200} className='w-[65%] object-cover h-auto xl:w-[60%] 2xl:w-[50%]'/>}
+            {singleProduct.img && <Image src={singleProduct.img} alt='' width={200} height={200} className='w-[65%] object-cover h-auto xl:w-[60%] 2xl:w-[50%]'/>}
                 <div className='text-gray-100 flex bg-yellow-400 w-1/2 rounded-xl p-5 flex-col justify-center items-center gap-4 shadow-xl m-5'>
                     <div className='flex gap-10 w-full justify-center items-center'>
                         <h1 className='text-2xl'>{singleProduct.title}</h1>
@@ -57,5 +57,7 @@ const SingleProduct = async ({params} : {params:{id:string}}) => {
 };
 
 export default SingleProduct;
+
+/*{singleProduct.img && <Image src={singleProduct.img} alt='' width={200} height={200} className='w-[65%] object-cover h-auto xl:w-[60%] 2xl:w-[50%]'/>}*/
 
 
